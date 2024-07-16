@@ -15,7 +15,7 @@ public class S3Writer {
     private final S3Client s3Client;
 
     public S3Writer() {
-        AwsBasicCredentials awsCreds = AwsBasicCredentials.create("AKIA3YNXIDJLWZOEVTNN", "EiThNAQVjmSjS1J0TbkqH9uuLGWEXCEYwh3gsMcu");
+        AwsBasicCredentials awsCreds = AwsBasicCredentials.create("sample_key_id", "sample_key");
         this.s3Client = S3Client.builder()
                 .region(Region.AP_SOUTHEAST_1)
                 .credentialsProvider(StaticCredentialsProvider.create(awsCreds))
