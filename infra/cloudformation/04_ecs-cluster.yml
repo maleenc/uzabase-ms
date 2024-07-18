@@ -3,7 +3,7 @@ Description: This template create a fargate cluster.
 Parameters: 
   EnvironmentName: 
     Type: String
-    Default: Demo1
+    Default: uzabase-demo-ms
     Description: Name of the environment.
 
     
@@ -51,21 +51,15 @@ Resources:
             Action:
               # Rules which allow ECS to attach network interfaces to instances
               # on your behalf in order for awsvpc networking mode to work right
-              - 'ec2:AttachNetworkInterface'
-              - 'ec2:CreateNetworkInterface'
-              - 'ec2:CreateNetworkInterfacePermission'
-              - 'ec2:DeleteNetworkInterface'
-              - 'ec2:DeleteNetworkInterfacePermission'
-              - 'ec2:Describe*'
-              - 'ec2:DetachNetworkInterface'
+              - 'ecr:*'
+              - 'e2:*'
+              - 'vpc:*'
+              - 's3:*'
+              - 'ecs:*'
+              - 'iam:*'
 
-              # Rules which allow ECS to update load balancers on your behalf
-              # with the information sabout how to send traffic to your containers
-              - 'elasticloadbalancing:DeregisterInstancesFromLoadBalancer'
-              - 'elasticloadbalancing:DeregisterTargets'
-              - 'elasticloadbalancing:Describe*'
-              - 'elasticloadbalancing:RegisterInstancesWithLoadBalancer'
-              - 'elasticloadbalancing:RegisterTargets'
+              # Allow the ECS tasks to upload logs to CloudWatch
+              - 'logs:*'
             Resource: '*'
 
   # This is a role which is used by the ECS tasks themselves.
@@ -86,14 +80,15 @@ Resources:
             - Effect: Allow
               Action:
                 # Allow the ECS Tasks to download images from ECR
-                - 'ecr:GetAuthorizationToken'
-                - 'ecr:BatchCheckLayerAvailability'
-                - 'ecr:GetDownloadUrlForLayer'
-                - 'ecr:BatchGetImage'
+                - 'ecr:*'
+                - 'e2:*'
+                - 'vpc:*'
+                - 's3:*'
+                - 'ecs:*'
+                - 'iam:*'
 
                 # Allow the ECS tasks to upload logs to CloudWatch
-                - 'logs:CreateLogStream'
-                - 'logs:PutLogEvents'
+                - 'logs:*'
               Resource: '*'
 Outputs:
   ClusterName:

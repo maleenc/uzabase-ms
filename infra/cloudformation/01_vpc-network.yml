@@ -3,8 +3,8 @@ Description: This stack creates a VPC with both public and private subnets.
 Parameters: 
   EnvironmentName: 
     Type: String
-    Default: Demo1
-    Description: Name of the environment.
+    Default: uzabase-demo-ms
+    Description: uzabase-demo-ms
 
 Mappings:
   # Hard values for the subnet masks. These masks define

@@ -1,0 +1,40 @@
+Description: >
+  This template create vpc, nat, load-balancer, ecs cluster and deploy services.
+
+Resources:
+
+  VPC:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: https://uzabase-cf.s3.amazonaws.com/cloudformation/01_vpc-network.yml
+      Parameters:
+        EnvironmentName: uzabase-demo-ms
+  NAT:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: https://uzabase-cf.s3.amazonaws.com/cloudformation/02_nat-gateway.yml
+      Parameters:
+        EnvironmentName: uzabase-demo-ms
+  ALB:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: https://uzabase-cf.s3.amazonaws.com/cloudformation/03_load-balancer.yml
+      Parameters:
+        EnvironmentName: uzabase-demo-ms
+  ECS:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: https://uzabase-cf.s3.amazonaws.com/cloudformation/04_ecs-cluster.yml
+      Parameters:
+        EnvironmentName: uzabase-demo-ms
+  ProcessService:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: https://uzabase-cf.s3.amazonaws.com/cloudformation/05_process-service.yml
+      Parameters:
+        EnvironmentName: uzabase-demo-ms
+
+Outputs:
+  LoadBalancerUrl:
+    Description: Load balancer url
+    Value: !GetAtt ALB.Outputs.ExternalUrl
